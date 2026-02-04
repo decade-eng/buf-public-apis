@@ -9,7 +9,7 @@ import (
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 
-	http_client "github.com/getfrontierhq/buf-public-apis/gen/go/http_client"
+	http_client "github.com/decade-eng/buf-public-apis/gen/go/http_client"
 )
 
 // extractHTTPInfo parses the google.api.http annotation from a method.

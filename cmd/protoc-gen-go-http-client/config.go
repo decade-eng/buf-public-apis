@@ -37,14 +37,14 @@ func parseClientConfig(params pgs.Parameters) (*ClientConfig, error) {
 	// Get Go module path (can be overridden with go_module_path parameter)
 	goModulePath := params.Str("go_module_path")
 	if goModulePath == "" {
-		// Default assumption: github.com/getfrontierhq/schema/pkg/go
+		// Default assumption: github.com/decade-eng/schema/pkg/go
 		// This should be made configurable via parameter
-		goModulePath = "github.com/getfrontierhq/schema/pkg/go"
+		goModulePath = "github.com/decade-eng/schema/pkg/go"
 	}
 
 	// Compute HTTP client package path
 	// go_module_path + "/" + output_subdir + "/http"
-	// Example: github.com/getfrontierhq/schema/pkg/go/vendors/iniciador/httpclient/client/http
+	// Example: github.com/decade-enga/pkg/go/vendors/iniciador/httpclient/client/http
 	httpClientPkg := fmt.Sprintf("%s/%s/http",
 		goModulePath,
 		outputSubdir,

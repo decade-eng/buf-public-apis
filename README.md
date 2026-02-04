@@ -11,7 +11,7 @@ A protoc plugin that adds DynamoDB struct tags to generated Go protobuf code.
 #### Installation
 
 ```bash
-go install github.com/getfrontierhq/buf-public-apis/cmd/protoc-gen-go-dynamo@latest
+go install github.com/decade-eng/buf-public-apis/cmd/protoc-gen-go-dynamo@latest
 ```
 
 #### Usage
@@ -108,7 +108,7 @@ A protoc plugin that generates HTTP client and server handlers from `google.api.
 #### Installation
 
 ```bash
-go install github.com/getfrontierhq/buf-public-apis/cmd/protoc-gen-go-http@latest
+go install github.com/decade-eng/buf-public-apis/cmd/protoc-gen-go-http@latest
 ```
 
 #### Usage
@@ -170,7 +170,7 @@ The plugin generates:
 The generated code requires the runtime library:
 
 ```bash
-go get github.com/getfrontierhq/buf-public-apis/internal/gohttp
+go get github.com/decade-eng/buf-public-apis/internal/gohttp
 ```
 
 Use in your server:
@@ -194,7 +194,7 @@ A protoc plugin that generates HTTP **client** code with automatic interface gen
 #### Installation
 
 ```bash
-go install github.com/getfrontierhq/buf-public-apis/cmd/protoc-gen-go-http-client@latest
+go install github.com/decade-eng/buf-public-apis/cmd/protoc-gen-go-http-client@latest
 ```
 
 #### Features

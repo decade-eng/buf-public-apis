@@ -8,7 +8,7 @@ type ClientConfig struct {
 	RootPackage   string // Proto package prefix (e.g., "vendors.iniciador")
 	OutputSubdir  string // Output subdirectory (e.g., "client")
 	ClientName    string // Root client name (e.g., "IniciadorClient", derived from package)
-	GoModulePath  string // Go module path (e.g., "github.com/getfrontierhq/schema/pkg/go")
+	GoModulePath  string // Go module path (e.g., "github.com/decade-eng/schema/pkg/go")
 	HTTPClientPkg string // Full path to HTTP client package (computed from above)
 }
 
@@ -106,7 +106,8 @@ type RootClientTemplateData struct {
 // generateInterfaceName creates an interface name from a service/client name
 // The interface gets the base name (no suffix)
 // Examples: "AccountsService" -> "AccountsService"
-//           "IniciadorClient" -> "IniciadorClient"
+//
+//	"IniciadorClient" -> "IniciadorClient"
 func generateInterfaceName(serviceName string) string {
 	return serviceName
 }
@@ -114,15 +115,17 @@ func generateInterfaceName(serviceName string) string {
 // generateImplName creates an implementation struct name from a service/client name
 // The implementation gets "Impl" suffix
 // Examples: "AccountsService" -> "AccountsServiceImpl"
-//           "IniciadorClient" -> "IniciadorClientImpl"
+//
+//	"IniciadorClient" -> "IniciadorClientImpl"
 func generateImplName(serviceName string) string {
 	return serviceName + "Impl"
 }
 
 // generatePrivateFieldName creates a private field name from a service name
 // Examples: "AccountsService" -> "accounts"
-//           "IniciadorClient" -> "iniciador"
-//           "TreasureTitlesService" -> "treasureTitles"
+//
+//	"IniciadorClient" -> "iniciador"
+//	"TreasureTitlesService" -> "treasureTitles"
 func generatePrivateFieldName(serviceName string) string {
 	if serviceName == "" {
 		return ""

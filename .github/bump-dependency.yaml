@@ -27,7 +27,7 @@ permissions:
 
 jobs:
   bump:
-    uses: getfrontierhq/github-actions/.github/workflows/org-bump-dependency.yaml@main
+    uses: decade-eng/github-actions/.github/workflows/org-bump-dependency.yaml@main
     with:
       dep-name: ${{ inputs.dep-name }}
       dep-repo: ${{ inputs.dep-repo }}
