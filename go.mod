@@ -1,4 +1,4 @@
-module github.com/getfrontierhq/buf-public-apis
+module github.com/decade-eng/buf-public-apis
 
 go 1.23
 

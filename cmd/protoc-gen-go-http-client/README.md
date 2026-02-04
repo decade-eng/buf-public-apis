@@ -15,7 +15,7 @@ A protoc plugin that generates HTTP client code with interfaces from proto servi
 ## Installation
 
 ```bash
-go install github.com/getfrontierhq/buf-public-apis/cmd/protoc-gen-go-http-client@latest
+go install github.com/decade-eng/buf-public-apis/cmd/protoc-gen-go-http-client@latest
 ```
 
 ## Usage
@@ -48,7 +48,7 @@ plugins:
 - `client=<proto_package>:<output_subdir>` - Required. Specifies the proto package and output directory
   - Example: `client=vendors.iniciador:vendors/iniciador/httpclient/client`
 - `go_module_path=<path>` - Optional. Go module path for imports
-  - Default: `github.com/getfrontierhq/schema/pkg/go`
+  - Default: `github.com/decade-eng/schema/pkg/go`
 
 ### 3. Generate code
 
