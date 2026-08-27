@@ -41,6 +41,7 @@
 //     Id        string `protobuf:"..." json:"..." dynamo:"ID,hash"`
 //     Email     string `protobuf:"..." json:"..." dynamo:"email" index:"email-index,hash"`
 //     CreatedAt int64  `protobuf:"..." json:"..." dynamo:",range"`
+//     DeletedAt int64  `protobuf:"..." json:"..." dynamo:"deleted_at,omitempty"`
 //   }
 //
 // # Annotations
@@ -51,6 +52,7 @@
 //     [(dynamo.key) = {type: KEY_TYPE_HASH, column_name: "ID"}]
 //     [(dynamo.key) = {type: KEY_TYPE_RANGE}]
 //     [(dynamo.key) = {column_name: "email"}]  // No key type
+//     [(dynamo.key) = {column_name: "deleted_at", omit_empty: true}]
 //
 // (dynamo.gsi) - Global Secondary Index (repeatable)
 //   Use IndexConfig message to specify index name and key type.
@@ -89,6 +91,17 @@ message KeyConfig {
   // Column name to use in the dynamo tag.
   // If empty, uses the field name.
   string column_name = 2;
+
+  // Adds omitempty to the generated tag, so a zero value is left off the item
+  // instead of being written as an empty attribute.
+  //
+  // This is not cosmetic. An attribute that is absent does not project into a
+  // GSI keyed on it, which is how a table holds rows of more than one shape in
+  // one place: rows that leave the key attribute unset stay out of the index,
+  // and so out of the queries that read through it. Without this, such a
+  // schema cannot be expressed in proto at all and the Go struct has to be
+  // written and maintained by hand.
+  bool omit_empty = 3;
 }
 
 // IndexConfig specifies the configuration for DynamoDB indexes.

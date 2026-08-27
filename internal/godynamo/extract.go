@@ -4,6 +4,7 @@ package godynamo
 
 import (
 	"fmt"
+	"strings"
 
 	pgs "github.com/lyft/protoc-gen-star/v2"
 	pgsgo "github.com/lyft/protoc-gen-star/v2/lang/go"
@@ -114,23 +115,33 @@ func getLSIs(f pgs.Field) ([]*dynamopb.IndexConfig, error) {
 	return cfgs, nil
 }
 
+// buildKeyTag renders the dynamo tag: a column name followed by the flags the
+// field asked for, as `dynamo:"name,hash,omitempty"`.
 func buildKeyTag(cfg *dynamopb.KeyConfig) string {
-	columnName := cfg.ColumnName
+	var flags []string
 
 	switch cfg.Type {
 	case dynamopb.KeyType_KEY_TYPE_HASH:
-		return fmt.Sprintf(`dynamo:"%s,hash"`, columnName)
+		flags = append(flags, "hash")
 	case dynamopb.KeyType_KEY_TYPE_RANGE:
-		return fmt.Sprintf(`dynamo:"%s,range"`, columnName)
+		flags = append(flags, "range")
 	case dynamopb.KeyType_KEY_TYPE_UNSPECIFIED:
-		// Type not specified, just output column name
-		if columnName == "" {
-			return ""
-		}
-		return fmt.Sprintf(`dynamo:"%s"`, columnName)
+		// No key flag; the field may still carry a column name or omitempty.
 	default:
 		return ""
 	}
+
+	if cfg.GetOmitEmpty() {
+		flags = append(flags, "omitempty")
+	}
+
+	// A field that asked for nothing at all gets no tag, so an unannotated
+	// field is left exactly as the Go generator emitted it.
+	if cfg.ColumnName == "" && len(flags) == 0 {
+		return ""
+	}
+
+	return fmt.Sprintf(`dynamo:"%s"`, strings.Join(append([]string{cfg.ColumnName}, flags...), ","))
 }
 
 func buildGSITag(cfg *dynamopb.IndexConfig) string {
