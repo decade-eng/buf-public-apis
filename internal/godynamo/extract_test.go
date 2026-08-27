@@ -33,8 +33,6 @@ func TestBuildKeyTag(t *testing.T) {
 			want: `dynamo:"deleted_at,omitempty"`,
 		},
 		{
-			// A row that leaves this unset stays out of any index keyed on it,
-			// which is how one table holds rows of more than one shape.
 			name: "omit empty alongside a key flag",
 			cfg:  &dynamopb.KeyConfig{Type: dynamopb.KeyType_KEY_TYPE_RANGE, ColumnName: "created_at", OmitEmpty: true},
 			want: `dynamo:"created_at,range,omitempty"`,

@@ -115,8 +115,6 @@ func getLSIs(f pgs.Field) ([]*dynamopb.IndexConfig, error) {
 	return cfgs, nil
 }
 
-// buildKeyTag renders the dynamo tag: a column name followed by the flags the
-// field asked for, as `dynamo:"name,hash,omitempty"`.
 func buildKeyTag(cfg *dynamopb.KeyConfig) string {
 	var flags []string
 
@@ -126,7 +124,6 @@ func buildKeyTag(cfg *dynamopb.KeyConfig) string {
 	case dynamopb.KeyType_KEY_TYPE_RANGE:
 		flags = append(flags, "range")
 	case dynamopb.KeyType_KEY_TYPE_UNSPECIFIED:
-		// No key flag; the field may still carry a column name or omitempty.
 	default:
 		return ""
 	}
@@ -135,8 +132,6 @@ func buildKeyTag(cfg *dynamopb.KeyConfig) string {
 		flags = append(flags, "omitempty")
 	}
 
-	// A field that asked for nothing at all gets no tag, so an unannotated
-	// field is left exactly as the Go generator emitted it.
 	if cfg.ColumnName == "" && len(flags) == 0 {
 		return ""
 	}

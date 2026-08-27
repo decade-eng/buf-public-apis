@@ -148,15 +148,7 @@ type KeyConfig struct {
 	// Column name to use in the dynamo tag.
 	// If empty, uses the field name.
 	ColumnName string `protobuf:"bytes,2,opt,name=column_name,json=columnName,proto3" json:"column_name,omitempty"`
-	// Adds omitempty to the generated tag, so a zero value is left off the item
-	// instead of being written as an empty attribute.
-	//
-	// This is not cosmetic. An attribute that is absent does not project into a
-	// GSI keyed on it, which is how a table holds rows of more than one shape in
-	// one place: rows that leave the key attribute unset stay out of the index,
-	// and so out of the queries that read through it. Without this, such a
-	// schema cannot be expressed in proto at all and the Go struct has to be
-	// written and maintained by hand.
+	// Adds omitempty to the generated tag, leaving a zero value off the item.
 	OmitEmpty     bool `protobuf:"varint,3,opt,name=omit_empty,json=omitEmpty,proto3" json:"omit_empty,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
